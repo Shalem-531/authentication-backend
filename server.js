@@ -12,7 +12,7 @@ app.use(express.json());
 
 // ✅ CORS (BEFORE routes)
 app.use(cors({
-  origin: "http://localhost:5173", // if Vite
+  origin: "*", 
   credentials: true
 }));
 
