@@ -12,7 +12,7 @@ app.use(express.json());
 
 // ✅ CORS (BEFORE routes)
 app.use(cors({
-  origin: "https://e-commmerce-frontend-theta.vercel.app/", 
+  origin: "https://e-commmerce-frontend-theta.vercel.app", 
   credentials: true
 }));
 
