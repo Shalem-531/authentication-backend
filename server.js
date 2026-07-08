@@ -6,7 +6,7 @@ const app = express();
 
 const { sequelize } = require('./config/db');
 const authRoutes = require('./Routes/auth');
-
+const job=require("./utils/cron.js")
 // ✅ Middleware
 app.use(express.json());
 
@@ -18,7 +18,7 @@ app.use(cors({
 
 app.use('/api/users', authRoutes);
 
-app.get("/", (req, res) => {
+app.get("/health", (req, res) => {
   res.send("Auth API working ✅");
 });
 
@@ -27,10 +27,12 @@ const PORT = process.env.PORT || 5000;
 // Connect DB and start server
 sequelize.sync()
   .then(() => {
-    console.log("SQLite connected ✅");
-
+    console.log("SQLite connected ");
+      if (process.env.NODE_ENV === "production") {
+      job.start();
+    }
     app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT} 🚀`);
+      console.log(`Server running on port ${PORT} `);
     });
   })
   .catch((err) => {
